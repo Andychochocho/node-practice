@@ -21,7 +21,7 @@ $(document).ready(function(){
   });
 });
 
-var apiKey = "37787368d8c1235dfff1995209f1e261";
+var apiKey = require('./../.env').apiKey;
 
 $(document).ready(function() {
   $('#weatherLocation').click(function() {
@@ -29,6 +29,8 @@ $(document).ready(function() {
     $('#location').val("");
     $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + apiKey).then(function(response) {
       $('.showWeather').text("The humidity in " + city + " is " + response.main.humidity + "%");
+    }).fail(function(error) {
+      $('.showWeather').text(error.message);
     });
   });
 });
